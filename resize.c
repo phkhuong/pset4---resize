@@ -108,11 +108,12 @@ int main(int argc, char* argv[])
                 }
             }
     
-            // then add it back (to demonstrate how)
+            // add padding
             for (int k = 0; k < paddingr; k++)
             {
                 fputc(0x00, outptr);
             }
+            // take the cursor back to the beginning of the scanline 
             if (q < n-1)
             {
                 fseek(inptr, -(bi.biWidth * sizeof(RGBTRIPLE)), SEEK_CUR);
