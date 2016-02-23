@@ -70,16 +70,16 @@ int main(int argc, char* argv[])
     
      // determine padding for scanlines
     int padding = (4 - (bi.biWidth * sizeof(RGBTRIPLE)) % 4) % 4;
-    int paddingr =  (4 - (bi.biWidth * sizeof(RGBTRIPLE) * n) % 4) % 4;
+    int paddingR =  (4 - (bi.biWidth * sizeof(RGBTRIPLE) * n) % 4) % 4;
     
     BITMAPINFOHEADER bir = bi;
     
     bir.biWidth = bi.biWidth*n; 
     bir.biHeight = bi.biHeight*n; 
-    bir.biSizeImage = bi.biWidth*abs(bi.biHeight)*n*n*3 + paddingr*bi.biHeight*n; 
+    bir.biSizeImage = bi.biWidth*abs(bi.biHeight)*n*n*3 + paddingR*bi.biHeight*n; 
     
     BITMAPFILEHEADER bfr = bf;
-    bfr.bfSize = bi.biWidth*abs(bi.biHeight)*n*n*3 + paddingr*bi.biHeight*n + 54;
+    bfr.bfSize = bi.biWidth*abs(bi.biHeight)*n*n*3 + paddingR*bi.biHeight*n + 54;
     // write outfile's BITMAPFILEHEADER
     fwrite(&bfr, sizeof(BITMAPFILEHEADER), 1, outptr);
 
@@ -95,7 +95,6 @@ int main(int argc, char* argv[])
             // iterate over pixels in scanline
             for (int j = 0; j < bi.biWidth; j++)
             {
-              
                 // temporary storage
                 RGBTRIPLE triple;
     
@@ -109,7 +108,7 @@ int main(int argc, char* argv[])
             }
     
             // add padding
-            for (int k = 0; k < paddingr; k++)
+            for (int k = 0; k < paddingR; k++)
             {
                 fputc(0x00, outptr);
             }
